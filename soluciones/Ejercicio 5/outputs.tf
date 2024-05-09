@@ -1,0 +1,1 @@
+#output "example_output" {}
