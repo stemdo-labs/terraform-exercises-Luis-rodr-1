@@ -15,3 +15,5 @@
 
 # Ignore all sensitive.auto.tfvars files
 **/sensitive.auto.tfvars
+
+**/credentials.json

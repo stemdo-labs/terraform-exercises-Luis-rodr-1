@@ -1,0 +1,51 @@
+name: execute_terraform
+
+on:
+  pull_request:
+    branches:
+      - 'Ejercicio*'
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Azure CLI script
+        uses: azure/cli@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az account show
+            az storage -h
+
+      - uses: hashicorp/setup-terraform@v3
+        with: 
+          terraform_version: "1.8.2"
+
+      - name: set_env
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            branch_name="main"
+          else
+            branch_name=$(echo "${{ github.ref }}" | sed 's#refs/heads/##')
+          fi
+          echo "Branch name is $branch_name"
+          chmod +x "${{ github.workspace }}/auxiliar/set_env.sh"
+          "${{ github.workspace }}/auxiliar/set_env.sh" $branch_name
+
+      - name: terraform_commands
+        run: #init  
+             #validate
+             #if_succeeds
+             #plan with input
+             #apply
+             #destroy
+        
+
+        
+  

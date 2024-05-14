@@ -1,5 +1,7 @@
 provider "azurerm"{
-    features {}
+    features {
+      
+    }
 }
 
 resource "azurerm_virtual_network" "vnet" {
@@ -9,7 +11,6 @@ resource "azurerm_virtual_network" "vnet" {
     address_space = var.vnet_address_space
 
     tags = merge(
-
         var.vnet_tags, 
         {   
             owner = var.owner_tag, 
